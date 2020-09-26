@@ -1,14 +1,9 @@
 import React from 'react';
-import './App.css';
-import { Button } from '@material-ui/core';
+import { Navbar } from './components/Navbar';
 
 const App: React.FC = () => {
-  const handleClick = (): void => {
-    alert('Hey!');
-  };
-
   return (
-    <Button variant="contained" color="primary" onClick={handleClick}>Test</Button>
+    <Navbar />
   );
 };
 

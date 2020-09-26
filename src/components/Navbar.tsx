@@ -1,0 +1,29 @@
+import React from 'react';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        root: {
+            flexGrow: 1
+        },
+        title: {
+            flexGrow: 1
+        }
+    })
+);
+
+export const Navbar: React.FC = () => {
+    const classes = useStyles();
+
+    return (
+        <div className={classes.root}>
+            <AppBar>
+            <Toolbar>
+                <Typography className={classes.title} variant="h6">Lighthouse Notes</Typography>
+                <Button color="inherit">Login</Button>
+            </Toolbar>
+        </AppBar>
+        </div>
+    );
+};
