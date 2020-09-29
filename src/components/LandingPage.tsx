@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Typography, Card, CardActionArea ,CardMedia } from '@material-ui/core';
+import { Container, Button } from '@material-ui/core';
 import mainLogo from '../assets/lighthouse.jpg';
 
 const useStyles = makeStyles({
@@ -17,11 +17,7 @@ export const LandingPage: React.FC = () => {
 
     return (
         <Container>
-            <Card className={ classes.root }>
-                <CardActionArea>
-                    <CardMedia className={ classes.media } image={ mainLogo } />
-                </CardActionArea>
-            </Card>
+            <Button fullWidth>Test</Button>
         </Container>
     );
 };
