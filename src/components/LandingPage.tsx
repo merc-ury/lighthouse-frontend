@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, Container, Grid, Button, Typography } from '@material-ui/core';
+import { Box, Grid, Typography } from '@material-ui/core';
+import { GoogleAuthBtn } from './GoogleAuthBtn';
 import mainLogo from '../assets/lighthouse.jpg';
 
 const useStyles = makeStyles({
@@ -26,7 +27,7 @@ export const LandingPage: React.FC = () => {
                 <img className={classes.media} src={mainLogo} alt="lighthouse"/>
                 <Typography variant="h6">A light can be seen from the horizon...</Typography>
                 <Typography variant="h6">rest assured, you finally made it.</Typography>
-                <Button variant="contained">Click here to sign up</Button>
+                <GoogleAuthBtn useDefaultBtn={true} />
             </Grid>
         </Box>
     );
