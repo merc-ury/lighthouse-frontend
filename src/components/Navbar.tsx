@@ -1,6 +1,7 @@
 import React from 'react';
+import { GoogleLoginButton } from './GoogleAuthButton';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
     root: {
@@ -19,7 +20,7 @@ export const Navbar: React.FC = () => {
             <AppBar position="static">
                 <Toolbar>
                     <Typography className={ classes.title } variant="h6">Lighthouse Notes</Typography>
-                    <Button color="inherit">Login</Button>
+                    <GoogleLoginButton useDefaultBtn={false} customText="Login" customColor="inherit" />
                 </Toolbar>
             </AppBar>
         </div>
