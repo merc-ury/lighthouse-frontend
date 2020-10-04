@@ -1,7 +1,7 @@
 import React from 'react';
 import { GoogleLoginButton } from './GoogleAuthButton';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
     root: {
