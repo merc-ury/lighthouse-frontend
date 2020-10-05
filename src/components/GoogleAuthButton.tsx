@@ -23,12 +23,15 @@ export const GoogleLoginButton: React.FC<IProps> = (props) => {
     const handleSuccessResponse = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
         if (isGoogleLoginResponse(response)) {
             // TODO: send data back to backend
-            console.log(response.accessToken);
+            console.log('ACCESS TOKEN: ' + response.accessToken);
+            console.log(response.profileObj);
+
             setUser({
                 googleId: response.profileObj.googleId,
                 name: response.profileObj.familyName,
                 email: response.profileObj.email,
                 imgUrl: response.profileObj.imageUrl,
+                accessToken: response.accessToken,
                 loggedIn: true
             });
         }
