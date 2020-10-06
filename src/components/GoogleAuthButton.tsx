@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { UserDataContext } from '../data/UserDataContext';
 import { Button } from '@material-ui/core';
 import { GoogleLoginResponse, GoogleLoginResponseOffline,useGoogleLogin, useGoogleLogout, GoogleLogin, GoogleLogout } from 'react-google-login';
 
@@ -9,9 +10,11 @@ interface IProps {
     customColor?: "inherit" | "primary" | "secondary" | "default" | undefined
 }
 
+// TODO: move clientID to dotenv file
 const clientID: string = "393002801221-om8rvfesgm1vjf5sienfif6v126a3b06.apps.googleusercontent.com";
 
 export const GoogleLoginButton: React.FC<IProps> = (props) => {
+    const setUser = useContext(UserDataContext)[1];
 
     const isGoogleLoginResponse = (arg: any): arg is GoogleLoginResponse => {
         return (arg as GoogleLoginResponse).profileObj !== undefined;
@@ -20,7 +23,17 @@ export const GoogleLoginButton: React.FC<IProps> = (props) => {
     const handleSuccessResponse = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
         if (isGoogleLoginResponse(response)) {
             // TODO: send data back to backend
+            console.log('ACCESS TOKEN: ' + response.accessToken);
             console.log(response.profileObj);
+
+            setUser({
+                googleId: response.profileObj.googleId,
+                name: response.profileObj.familyName,
+                email: response.profileObj.email,
+                imgUrl: response.profileObj.imageUrl,
+                accessToken: response.accessToken,
+                loggedIn: true
+            });
         }
     };
 
@@ -33,7 +46,7 @@ export const GoogleLoginButton: React.FC<IProps> = (props) => {
         onSuccess: handleSuccessResponse,
         onFailure: handleFailureResponse,
         cookiePolicy: 'single_host_origin',
-        isSignedIn: false
+        isSignedIn: true
     });
 
     const renderButton = (): JSX.Element => {
@@ -43,7 +56,7 @@ export const GoogleLoginButton: React.FC<IProps> = (props) => {
                              onSuccess={handleSuccessResponse}
                              onFailure={handleFailureResponse}
                              cookiePolicy='single_host_origin'
-                             isSignedIn={false} />
+                             isSignedIn={true} />
             );
         else
             return (
@@ -59,9 +72,13 @@ export const GoogleLoginButton: React.FC<IProps> = (props) => {
 };
 
 export const GoogleLogoutButton: React.FC<IProps> = (props) => {
+    const setUser = useContext(UserDataContext)[1];
 
     const handleLogoutResponse = () => {
         console.log('Logged out successfully');
+        setUser({
+            loggedIn: false
+        });
     };
 
     const handleFailureResponse = () => {
