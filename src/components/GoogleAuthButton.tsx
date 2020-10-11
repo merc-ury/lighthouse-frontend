@@ -28,7 +28,7 @@ export const GoogleLoginButton: React.FC<IProps> = (props) => {
 
             setUser({
                 googleId: response.profileObj.googleId,
-                name: response.profileObj.familyName,
+                name: response.profileObj.name,
                 email: response.profileObj.email,
                 imgUrl: response.profileObj.imageUrl,
                 accessToken: response.accessToken,

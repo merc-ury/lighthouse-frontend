@@ -1,8 +1,11 @@
 import React, { useContext } from 'react';
 import { UserDataContext } from '../data/UserDataContext';
 import { MenuBar } from './MenuBar';
+import { Link } from 'react-router-dom';
+import { Dashboard } from './Dashboard';
+import { AboutPage } from './AboutPage';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Button, Toolbar, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
     root: {
@@ -22,6 +25,12 @@ export const Navbar: React.FC = () => {
             <AppBar position="static">
                 <Toolbar>
                     <Typography className={classes.title} variant="h6">Lighthouse Notes</Typography>
+                    <Button component={Link} to={"/dashboard"} color="inherit">
+                        Dashboard
+                    </Button>
+                    <Button component={Link} to={"/about"} color="inherit">
+                        About
+                    </Button>
                     <MenuBar user={user} />
                 </Toolbar>
             </AppBar>
