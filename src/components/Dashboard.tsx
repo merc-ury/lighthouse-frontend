@@ -6,24 +6,25 @@ import { UserDataContext } from '../data/UserDataContext';
 export const Dashboard: React.FC = () => {
     const user = useContext(UserDataContext)[0];
     const [count, setCount] = useState<number>(3);
-    const [text, setText] = useState<string>(`You need to log in first! Redirecting you in ${count}...`);
 
     useEffect(() => {
+        if (!count || user.loggedIn) // exits if count == 0 or user.loggedIn == true
+            return;
+
         const timer = setTimeout(() => {
-            console.log('TIMER IS ACTIVATED...?');
-            setText(`You need to log in first! Redirecting you in ${count}...`);
-            setCount(count - 1);
+            console.log('Timer Activated: ' + count);
+            setCount(count => count - 1);
         }, 1000);
 
         return () => clearTimeout(timer);
-    });
+    }, [count]);
 
     const renderPage = (): JSX.Element => {
+        // TODO: display NoteList component if user is successfully logged in
         if (user.loggedIn)
             return (<Typography>Welcome {user.name}</Typography>);
-        else {
-            return count === 0 ? (<Redirect to="/" />) : (<Typography>{text}</Typography>);
-        }
+        else
+            return !count ? (<Redirect to="/" />) : (<Typography>You need to log in first! Redirecting...</Typography>);
     };
 
     return renderPage();

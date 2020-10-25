@@ -7,7 +7,7 @@ interface IProps {
     useDefaultBtn: boolean;
     customText?: string;
     customVariant?: "text" | "outlined" | "contained" | undefined;
-    customColor?: "inherit" | "primary" | "secondary" | "default" | undefined
+    customColor?: "inherit" | "primary" | "secondary" | "default" | undefined;
 }
 
 // TODO: move clientID to dotenv file
