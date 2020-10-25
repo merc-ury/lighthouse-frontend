@@ -7,7 +7,7 @@ interface IProps {
     useDefaultBtn: boolean;
     customText?: string;
     customVariant?: "text" | "outlined" | "contained" | undefined;
-    customColor?: "inherit" | "primary" | "secondary" | "default" | undefined
+    customColor?: "inherit" | "primary" | "secondary" | "default" | undefined;
 }
 
 // TODO: move clientID to dotenv file
@@ -28,7 +28,7 @@ export const GoogleLoginButton: React.FC<IProps> = (props) => {
 
             setUser({
                 googleId: response.profileObj.googleId,
-                name: response.profileObj.familyName,
+                name: response.profileObj.name,
                 email: response.profileObj.email,
                 imgUrl: response.profileObj.imageUrl,
                 accessToken: response.accessToken,

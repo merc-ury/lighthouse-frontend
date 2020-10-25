@@ -1,14 +1,20 @@
 import React, { useContext } from 'react';
 import { UserDataContext } from '../data/UserDataContext';
-import { GoogleLoginButton, GoogleLogoutButton } from './GoogleAuthButton';
+import { MenuBar } from './MenuBar';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, Button, Box, Toolbar, Typography } from '@material-ui/core';
+import theme from '../theme';
 
 const useStyles = makeStyles({
     root: {
         flexGrow: 1
     },
     title: {
+        display: 'inline',
+        margin: theme.spacing(2)
+    },
+    menuBar: {
         flexGrow: 1
     }
 });
@@ -18,14 +24,19 @@ export const Navbar: React.FC = () => {
     const user = useContext(UserDataContext)[0];
 
     return (
-        <div className={ classes.root }>
+        <div className={classes.root}>
             <AppBar position="static">
                 <Toolbar>
-                    <Typography className={ classes.title } variant="h6">Lighthouse Notes</Typography>
-                    {
-                        user.loggedIn ? <GoogleLogoutButton useDefaultBtn={false} customText="Logout" customColor="inherit" /> 
-                                      : <GoogleLoginButton useDefaultBtn={false} customText="Login" customColor="inherit" />
-                    }
+                    <Typography className={classes.title} variant="h6">Lighthouse Notes</Typography>
+                    <Box className={classes.menuBar}>
+                        <Button component={Link} to={"/dashboard"} color="inherit">
+                            Dashboard
+                        </Button>
+                        <Button component={Link} to={"/about"} color="inherit">
+                            About
+                        </Button>
+                    </Box>
+                    <MenuBar user={user} />
                 </Toolbar>
             </AppBar>
         </div>
