@@ -1,6 +1,6 @@
 import Axios, { AxiosRequestConfig } from 'axios';
 import { INote } from '../data/INote';
-import { INoteData } from '../data/INoteData';
+import { INoteData } from '../data/INote';
 
 // TODO: fix SSL certificates
 

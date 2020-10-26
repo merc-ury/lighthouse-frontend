@@ -1,3 +1,12 @@
-// TODO: generate interface for user response
+export interface IUser {
+    data:    IUserData[];
+    success: boolean;
+    message: null;
+}
 
-export const data = () => 'Hello World!';
+export interface IUserData {
+    userId: number;
+    email: string;
+    name: string;
+    createdOn?: Date;
+}

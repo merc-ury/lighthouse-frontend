@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useLogin } from '../hooks/useLogin';
 import { UserLoginContext } from '../data/UserLoginContext';
 import { Button } from '@material-ui/core';
 import { GoogleLoginResponse, GoogleLoginResponseOffline,useGoogleLogin, useGoogleLogout, GoogleLogin, GoogleLogout } from 'react-google-login';
@@ -15,6 +16,7 @@ const clientID: string = "393002801221-om8rvfesgm1vjf5sienfif6v126a3b06.apps.goo
 
 export const GoogleLoginButton: React.FC<IProps> = (props) => {
     const setUser = useContext(UserLoginContext)[1];
+    const login = useLogin();
 
     const isGoogleLoginResponse = (arg: any): arg is GoogleLoginResponse => {
         return (arg as GoogleLoginResponse).profileObj !== undefined;
@@ -24,7 +26,7 @@ export const GoogleLoginButton: React.FC<IProps> = (props) => {
         if (isGoogleLoginResponse(response)) {
             // TODO: send data back to backend
             console.log('ACCESS TOKEN: ' + response.accessToken);
-            console.log(response.profileObj);
+            console.log(response.profileObj.googleId);
 
             setUser({
                 googleId: response.profileObj.googleId,
