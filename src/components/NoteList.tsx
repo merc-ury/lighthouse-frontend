@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNotes } from '../hooks/useNotes';
-import { IUserData } from '../data/IUserData';
+import { IUserLogin } from '../data/IUserLogin';
 import { Typography } from '@material-ui/core';
 
 interface IProps {
-    user: IUserData;
+    user: IUserLogin;
 }
 
 export const NoteList: React.FC<IProps> = (props) => {

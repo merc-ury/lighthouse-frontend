@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
-import { UserDataContext } from '../data/UserDataContext';
+import { UserLoginContext } from '../data/UserLoginContext';
 import { NoteList } from './NoteList';
 
 export const Dashboard: React.FC = () => {
-    const user = useContext(UserDataContext)[0];
+    const user = useContext(UserLoginContext)[0];
     const [count, setCount] = useState<number>(3);
 
     useEffect(() => {

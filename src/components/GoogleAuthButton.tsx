@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { UserDataContext } from '../data/UserDataContext';
+import { UserLoginContext } from '../data/UserLoginContext';
 import { Button } from '@material-ui/core';
 import { GoogleLoginResponse, GoogleLoginResponseOffline,useGoogleLogin, useGoogleLogout, GoogleLogin, GoogleLogout } from 'react-google-login';
 
@@ -14,7 +14,7 @@ interface IProps {
 const clientID: string = "393002801221-om8rvfesgm1vjf5sienfif6v126a3b06.apps.googleusercontent.com";
 
 export const GoogleLoginButton: React.FC<IProps> = (props) => {
-    const setUser = useContext(UserDataContext)[1];
+    const setUser = useContext(UserLoginContext)[1];
 
     const isGoogleLoginResponse = (arg: any): arg is GoogleLoginResponse => {
         return (arg as GoogleLoginResponse).profileObj !== undefined;
@@ -72,7 +72,7 @@ export const GoogleLoginButton: React.FC<IProps> = (props) => {
 };
 
 export const GoogleLogoutButton: React.FC<IProps> = (props) => {
-    const setUser = useContext(UserDataContext)[1];
+    const setUser = useContext(UserLoginContext)[1];
 
     const handleLogoutResponse = () => {
         console.log('Logged out successfully');

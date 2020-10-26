@@ -2,7 +2,7 @@ import React from 'react';
 import { GoogleLoginButton, GoogleLogoutButton } from './GoogleAuthButton';
 import { Avatar, Badge } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { IUserData } from '../data/IUserData';
+import { IUserLogin } from '../data/IUserLogin';
 import theme from '../theme';
 
 const useStyles = makeStyles({
@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 });
 
 interface IProps {
-    user: IUserData;
+    user: IUserLogin;
 }
 
 export const MenuBar: React.FC<IProps> = (props) => {

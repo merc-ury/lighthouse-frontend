@@ -1,14 +1,23 @@
-import Axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import Axios, { AxiosRequestConfig } from 'axios';
 import { INote } from '../data/INote';
 import { INoteData } from '../data/INoteData';
 
 // TODO: fix SSL certificates
 
+// We may need to adjust configuration for sending requests; for now we can just have the httpAgent set
 const config: AxiosRequestConfig = {
     httpAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.111 Safari/537.36'
 };
 
-export const useNotes = () => {
+type NoteFC = () => {
+    getNotes: (userId: number) => Promise<INote>;
+    getNoteById: (noteId: number) => Promise<INote>;
+    addNote: (note: INoteData) => Promise<INote>;
+    updateNote: (note: INoteData) => Promise<INote>;
+    deleteNote: (noteId: number) => Promise<INote>;
+}
+
+export const useNotes: NoteFC = () => {
     // TODO: replace localhost with actual endpoints
     const baseUrl: string = 'https://localhost:5001';
 
