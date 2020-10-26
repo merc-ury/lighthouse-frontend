@@ -9,15 +9,16 @@ interface IProps {
 
 export const NoteList: React.FC<IProps> = (props) => {
     const service = useService();
-    const [text, setText] = useState<string>('');
+    const [text, setText] = useState<string>('bitch');
 
     useEffect(() => {
         const getData = async () => {
-            
+            const response = await service.getNotes(0);
+            console.log(response.data[0].title);
         };
 
         getData();
-    });
+    }, []);
 
     return (
         <div>
