@@ -10,24 +10,24 @@ const config: AxiosRequestConfig = {
 };
 
 type NoteFC = () => {
-    getNotes: (userId: number) => Promise<INote>;
-    getNoteById: (noteId: number) => Promise<INote>;
+    getNotes: (userID: number) => Promise<INote>;
+    getNoteByID: (noteID: number) => Promise<INote>;
     addNote: (note: INoteData) => Promise<INote>;
     updateNote: (note: INoteData) => Promise<INote>;
-    deleteNote: (noteId: number) => Promise<INote>;
+    deleteNote: (noteID: number) => Promise<INote>;
 }
 
 export const useNotes: NoteFC = () => {
     // TODO: replace localhost with actual endpoints
     const baseUrl: string = 'https://localhost:5001';
 
-    const getNotes = async (userId: number) => {
-        const response = await Axios.get<INote>(`${baseUrl}/api/note/get/${userId}/all`, config);
+    const getNotes = async (userID: number) => {
+        const response = await Axios.get<INote>(`${baseUrl}/api/note/get/${userID}/all`, config);
         return response.data;
     };
 
-    const getNoteById = async (noteId: number) => {
-        const response = await Axios.get<INote>(`${baseUrl}/api/note/get/${noteId}`, config);
+    const getNoteByID = async (noteID: number) => {
+        const response = await Axios.get<INote>(`${baseUrl}/api/note/get/${noteID}`, config);
         return response.data;
     };
 
@@ -41,14 +41,14 @@ export const useNotes: NoteFC = () => {
         return response.data;
     };
 
-    const deleteNote = async (noteId: number) => {
-        const response = await Axios.delete<INote>(`${baseUrl}/api/note/delete/${noteId}`, config);
+    const deleteNote = async (noteID: number) => {
+        const response = await Axios.delete<INote>(`${baseUrl}/api/note/delete/${noteID}`, config);
         return response.data;
     };
 
     return {
         getNotes,
-        getNoteById,
+        getNoteByID,
         addNote,
         updateNote,
         deleteNote

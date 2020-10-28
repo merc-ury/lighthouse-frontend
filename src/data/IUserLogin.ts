@@ -1,5 +1,5 @@
 export interface IUserLogin {
-    googleId?: string;
+    userID?: number;
     name?: string;
     email?: string;
     imgUrl?: string;

@@ -1,12 +1,12 @@
 export interface INote {
-    data:    INoteData[];
+    data:    INoteData | INoteData[];
     success: boolean;
     message: null;
 }
 
 export interface INoteData {
-    userId: number;
-    noteId: number;
+    userID: number;
+    noteID: number;
     title: string;
     content: string;
     priority: number;

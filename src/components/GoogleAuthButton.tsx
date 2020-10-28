@@ -22,16 +22,22 @@ export const GoogleLoginButton: React.FC<IProps> = (props) => {
         return (arg as GoogleLoginResponse).profileObj !== undefined;
     };
 
-    const handleSuccessResponse = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
+    const handleSuccessResponse = async (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
         if (isGoogleLoginResponse(response)) {
-            // TODO: send data back to backend
-            console.log('ACCESS TOKEN: ' + response.accessToken);
-            console.log(response.profileObj.googleId);
+            console.log('Logged in successfully!');
 
-            setUser({
-                googleId: response.profileObj.googleId,
+            // TODO: fix repetitive code
+            const user = await login.addUser({
+                userID: 0, // userId does not matter, will be generated in backend
                 name: response.profileObj.name,
                 email: response.profileObj.email,
+                createdOn: new Date()
+            });
+            
+            setUser({
+                userID: user.userID,
+                name: user.name,
+                email: user.email,
                 imgUrl: response.profileObj.imageUrl,
                 accessToken: response.accessToken,
                 loggedIn: true

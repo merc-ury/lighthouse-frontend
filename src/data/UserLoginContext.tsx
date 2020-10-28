@@ -13,7 +13,7 @@ export const UserLoginContext = createContext<[IUserLogin, UserLoginDispatch]>([
 
 export const UserLoginProvider: React.FC = (props) => {
     const state = useState<IUserLogin>({
-        googleId: '0',
+        userID: 0,
         name: '',
         email: '',
         imgUrl: '',
