@@ -3,6 +3,7 @@ import { useLogin } from '../hooks/useLogin';
 import { UserLoginContext } from '../data/UserLoginContext';
 import { Button } from '@material-ui/core';
 import { GoogleLoginResponse, GoogleLoginResponseOffline,useGoogleLogin, useGoogleLogout, GoogleLogin, GoogleLogout } from 'react-google-login';
+import { IUserData } from '../data/IUser';
 
 interface IProps {
     useDefaultBtn: boolean;
@@ -33,11 +34,13 @@ export const GoogleLoginButton: React.FC<IProps> = (props) => {
                 email: response.profileObj.email,
                 createdOn: new Date()
             });
+
+            user.data = user.data as IUserData; // need to explicitly declare it as a type of IUserData
             
             setUser({
-                userID: user.userID,
-                name: user.name,
-                email: user.email,
+                userID: user.data.userID,
+                name: user.data.name,
+                email: user.data.email,
                 imgUrl: response.profileObj.imageUrl,
                 accessToken: response.accessToken,
                 loggedIn: true
