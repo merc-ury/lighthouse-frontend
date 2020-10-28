@@ -1,30 +1,36 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useNotes } from '../hooks/useNotes';
+import { INoteData } from '../data/INote';
 import { IUserLogin } from '../data/IUserLogin';
-import { Typography } from '@material-ui/core';
 import { UserLoginContext } from '../data/UserLoginContext';
+import { Box, Typography } from '@material-ui/core';
 
 interface IProps {
     user: IUserLogin;
 }
 
 export const NoteList: React.FC<IProps> = (props) => {
-    const service = useNotes();
-    const [text, setText] = useState<string>('');
     const user = useContext(UserLoginContext)[0];
+    const service = useNotes();
+    const [notes, setNotes] = useState<INoteData[]>([]);
 
     useEffect(() => {
         const getData = async () => {
+            const response = await service.getNotes(user.userID);
             
+            setNotes(response.data as INoteData[]);
         };
 
         getData();
     }, []);
 
     return (
-        <div>
-            <Typography>Welcome {props.user.name}!</Typography>
-            <Typography>{text}</Typography>
-        </div>
+        <Box>
+            {
+                notes.map(note => {
+                    return (<Typography>{note.title}</Typography>)
+                })
+            }
+        </Box>
     );
 };

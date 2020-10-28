@@ -85,6 +85,11 @@ export const GoogleLogoutButton: React.FC<IProps> = (props) => {
     const handleLogoutResponse = () => {
         console.log('Logged out successfully');
         setUser({
+            userID: 0,
+            name: '',
+            email: '',
+            imgUrl: '',
+            accessToken: '',
             loggedIn: false
         });
     };
