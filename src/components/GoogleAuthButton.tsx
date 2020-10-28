@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
-import { UserDataContext } from '../data/UserDataContext';
+import { useLogin } from '../hooks/useLogin';
+import { UserLoginContext } from '../data/UserLoginContext';
 import { Button } from '@material-ui/core';
 import { GoogleLoginResponse, GoogleLoginResponseOffline,useGoogleLogin, useGoogleLogout, GoogleLogin, GoogleLogout } from 'react-google-login';
 
@@ -14,22 +15,29 @@ interface IProps {
 const clientID: string = "393002801221-om8rvfesgm1vjf5sienfif6v126a3b06.apps.googleusercontent.com";
 
 export const GoogleLoginButton: React.FC<IProps> = (props) => {
-    const setUser = useContext(UserDataContext)[1];
+    const setUser = useContext(UserLoginContext)[1];
+    const login = useLogin();
 
     const isGoogleLoginResponse = (arg: any): arg is GoogleLoginResponse => {
         return (arg as GoogleLoginResponse).profileObj !== undefined;
     };
 
-    const handleSuccessResponse = (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
+    const handleSuccessResponse = async (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
         if (isGoogleLoginResponse(response)) {
-            // TODO: send data back to backend
-            console.log('ACCESS TOKEN: ' + response.accessToken);
-            console.log(response.profileObj);
+            console.log('Logged in successfully!');
 
-            setUser({
-                googleId: response.profileObj.googleId,
+            // TODO: fix repetitive code
+            const user = await login.addUser({
+                userID: 0, // userId does not matter, will be generated in backend
                 name: response.profileObj.name,
                 email: response.profileObj.email,
+                createdOn: new Date()
+            });
+            
+            setUser({
+                userID: user.userID,
+                name: user.name,
+                email: user.email,
                 imgUrl: response.profileObj.imageUrl,
                 accessToken: response.accessToken,
                 loggedIn: true
@@ -72,7 +80,7 @@ export const GoogleLoginButton: React.FC<IProps> = (props) => {
 };
 
 export const GoogleLogoutButton: React.FC<IProps> = (props) => {
-    const setUser = useContext(UserDataContext)[1];
+    const setUser = useContext(UserLoginContext)[1];
 
     const handleLogoutResponse = () => {
         console.log('Logged out successfully');

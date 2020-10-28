@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { UserDataContext } from '../data/UserDataContext';
+import { UserLoginContext } from '../data/UserLoginContext';
 import { MenuBar } from './MenuBar';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
@@ -21,7 +21,7 @@ const useStyles = makeStyles({
 
 export const Navbar: React.FC = () => {
     const classes = useStyles();
-    const user = useContext(UserDataContext)[0];
+    const user = useContext(UserLoginContext)[0];
 
     return (
         <div className={classes.root}>

@@ -1,5 +1,5 @@
-export interface IUserData {
-    googleId?: string;
+export interface IUserLogin {
+    userID?: number;
     name?: string;
     email?: string;
     imgUrl?: string;

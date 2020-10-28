@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { UserDataProvider } from './data/UserDataContext';
+import { UserLoginProvider } from './data/UserLoginContext';
 import { LandingPage } from './components/LandingPage';
 import { Dashboard } from './components/Dashboard';
 import { AboutPage } from './components/AboutPage';
@@ -8,7 +8,7 @@ import { Navbar } from './components/Navbar';
 
 const App: React.FC = () => {
   return (
-    <UserDataProvider>
+    <UserLoginProvider>
       <div>
         <BrowserRouter>
           <Navbar />
@@ -19,7 +19,7 @@ const App: React.FC = () => {
           </Switch>
         </BrowserRouter>
       </div>
-    </UserDataProvider>
+    </UserLoginProvider>
   );
 };
 
