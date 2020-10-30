@@ -1,35 +1,18 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNotes } from '../hooks/useNotes';
 import { INoteData } from '../data/INote';
 import { IUserLogin } from '../data/IUserLogin';
 import { NoteItem } from './NoteItem';
-import { Box, GridList, GridListTile } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
-import theme from '../theme';
+import { AddNote } from './AddNote';
+import { Box, Grid, Container } from '@material-ui/core';
 
 interface IProps {
     user: IUserLogin;
 }
 
-const useStyles = makeStyles({
-    root: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'left',
-        overflow: 'hidden',
-        margin: theme.spacing(2),
-        // borderStyle: 'solid'
-    },
-    gridList: {
-        width: 'auto',
-        height: 'auto'
-    }
-});
-
 export const NoteList: React.FC<IProps> = (props) => {
     const service = useNotes();
     const [notes, setNotes] = useState<INoteData[]>([]);
-    const classes = useStyles();
 
     useEffect(() => {
         const getData = async () => {
@@ -42,16 +25,18 @@ export const NoteList: React.FC<IProps> = (props) => {
     }, []);
 
     return (
-        <Box className={classes.root}>
-            <GridList className={classes.gridList} cols={5}>
-                {
-                    notes.map((note, idx) => (
-                        <GridListTile key={idx} cols={1}>
-                            <NoteItem note={note}/>
-                        </GridListTile>
-                    ))
-                }
-            </GridList>
+        <Box>
+            <Container>
+                <AddNote />
+            </Container>
+            <Grid container
+                  direction="row"
+                  justify="center"
+                  alignItems="flex-start">
+                      {
+                          notes.map((note, idx) => (<NoteItem key={idx} note={note} />))
+                      }
+            </Grid>
         </Box>
     );
 };
