@@ -13,10 +13,8 @@ interface IProps {
 
 const useStyles = makeStyles({
     root: {
-        width: '20%',
-        maxWidth: '100%',
-        height: 'auto',
-        maxHeight: '100%',
+        width: '100%',
+        height: '100%',
         margin: theme.spacing(5)
     },
     actionArea: {

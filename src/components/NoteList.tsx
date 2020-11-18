@@ -27,7 +27,7 @@ export const NoteList: React.FC<IProps> = (props) => {
     return (
         <Box>
             <Container>
-                <AddNote />
+                <AddNote userID={props.user.userID}/>
             </Container>
             <Grid container
                   direction="row"
