@@ -6,6 +6,11 @@ type UserLoginDispatch = React.Dispatch<UserLoginStateUpdate>;
 
 export const UserLoginContext = createContext<[IUserLogin, UserLoginDispatch]>([
     {
+        userID: 0,
+        name: '',
+        email: '',
+        imgUrl: '',
+        accessToken: '',
         loggedIn: false
     },
     () => {}
@@ -17,6 +22,7 @@ export const UserLoginProvider: React.FC = (props) => {
         name: '',
         email: '',
         imgUrl: '',
+        accessToken: '',
         loggedIn: false
     });
 

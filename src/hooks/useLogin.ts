@@ -6,7 +6,7 @@ const config: AxiosRequestConfig = {
 };
 
 type LoginFC = () => {
-    addUser: (user: IUserData) => Promise<IUserData>;
+    addUser: (user: IUserData) => Promise<IUser>;
 };
 
 export const useLogin: LoginFC = () => {
@@ -15,7 +15,7 @@ export const useLogin: LoginFC = () => {
 
     const addUser = async (user: IUserData) => {
         const response = await Axios.post<IUser>(`${baseUrl}/api/user/add`, user, config);
-        return response.data.data as IUserData;
+        return response.data;
     };
 
     return {
