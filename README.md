@@ -1,2 +1,2 @@
 # Lighthouse Notes
-Author: Brandon Do and Andrew Nguyen
+Author: Brandon Do
