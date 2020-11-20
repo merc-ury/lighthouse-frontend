@@ -3,6 +3,7 @@ import { Paper, InputBase, IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useNotes } from '../hooks/useNotes';
 import { NoteIDContext } from '../data/NoteIDContext';
+import { Toast } from './Toast';
 import NoteIcon from '@material-ui/icons/Note';
 import ExpandMoreOutlinedIcon from '@material-ui/icons/ExpandMoreOutlined';
 import theme from '../theme';
@@ -32,6 +33,7 @@ export const AddNote: React.FC<IProps> = (props) => {
     const service = useNotes();
     const [currentNoteID, setCurrentNoteID] = useContext(NoteIDContext);
     const [content, setContent] = useState<string>('');
+    const [open, setOpen] = useState<boolean>(true);
 
     const updateNoteContent = (e: ChangeEvent<HTMLInputElement>) => {
         setContent(e.currentTarget.value);
@@ -52,16 +54,28 @@ export const AddNote: React.FC<IProps> = (props) => {
 
         setCurrentNoteID(currentNoteID + 1);
 
+        setOpen(true);
         console.log('Successfully added!');
+    };
+
+    const handleCloseToast = () => {
+        setOpen(false);
     };
     
     return (
-        <Paper className={classes.root} component="form" onSubmit={handleSubmit}>
-            <NoteIcon className={classes.icon} />
-            <InputBase className={classes.input} placeholder="Write a note..." onChange={updateNoteContent} />
-            <IconButton>
-                <ExpandMoreOutlinedIcon />
-            </IconButton>
-        </Paper>
+        <React.Fragment>
+            <Paper className={classes.root} component="form" onSubmit={handleSubmit}>
+                <NoteIcon className={classes.icon} />
+                <InputBase className={classes.input} placeholder="Write a note..." onChange={updateNoteContent} />
+                <IconButton>
+                    <ExpandMoreOutlinedIcon />
+                </IconButton>
+            </Paper>
+            { open ? <Toast 
+                        message="Success" 
+                        open={open} 
+                        handleClose={handleCloseToast} /> 
+                   : <div></div> }
+        </React.Fragment>
     );
 };

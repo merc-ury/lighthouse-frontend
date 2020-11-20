@@ -17,13 +17,15 @@ export const NoteList: React.FC<IProps> = (props) => {
     const [notes, setNotes] = useState<INoteData[]>([]);
 
     useEffect(() => {
-        console.log('NoteList: Called');
         const getData = async () => {
             const response = await service.getNotes(props.user.userID);
-            
+            const countResponse = await service.getCount();
+
             const noteData = response.data as INoteData[];
+            const count = countResponse.data as number;
+
             setNotes(noteData);
-            setCurrentNoteID(noteData[noteData.length - 1].noteID);
+            setCurrentNoteID(count);
         };
 
         getData();

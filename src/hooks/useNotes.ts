@@ -12,6 +12,7 @@ const config: AxiosRequestConfig = {
 type NoteFC = () => {
     getNotes: (userID: number) => Promise<INote>;
     getNoteByID: (noteID: number) => Promise<INote>;
+    getCount: () => Promise<INote>;
     addNote: (note: INoteData) => Promise<INote>;
     updateNote: (note: INoteData) => Promise<INote>;
     deleteNote: (noteID: number) => Promise<INote>;
@@ -28,6 +29,11 @@ export const useNotes: NoteFC = () => {
 
     const getNoteByID = async (noteID: number) => {
         const response = await Axios.get<INote>(`${baseUrl}/api/note/get/${noteID}`, config);
+        return response.data;
+    };
+
+    const getCount = async () => {
+        const response = await Axios.get<INote>(`${baseUrl}/api/note/get/count`, config);
         return response.data;
     };
 
@@ -49,6 +55,7 @@ export const useNotes: NoteFC = () => {
     return {
         getNotes,
         getNoteByID,
+        getCount,
         addNote,
         updateNote,
         deleteNote

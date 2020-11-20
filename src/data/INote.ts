@@ -1,5 +1,5 @@
 export interface INote {
-    data:    INoteData | INoteData[];
+    data:    INoteData | INoteData[] | number;
     success: boolean;
     message: null;
 }
