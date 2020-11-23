@@ -33,7 +33,8 @@ export const AddNote: React.FC<IProps> = (props) => {
     const service = useNotes();
     const [currentNoteID, setCurrentNoteID] = useContext(NoteIDContext);
     const [content, setContent] = useState<string>('');
-    const [open, setOpen] = useState<boolean>(true);
+    const [open, setOpen] = useState<boolean>(false);
+    const [toastMsg, setToastMsg] = useState<string>('');
 
     const updateNoteContent = (e: ChangeEvent<HTMLInputElement>) => {
         setContent(e.currentTarget.value);
@@ -42,7 +43,7 @@ export const AddNote: React.FC<IProps> = (props) => {
     const handleSubmit = async (e: FormEvent<HTMLInputElement>) => {
         e.preventDefault();
 
-        await service.addNote({
+        const res = await service.addNote({
             userID: props.userID,
             noteID: currentNoteID + 1,
             title: 'Default Title',
@@ -52,10 +53,13 @@ export const AddNote: React.FC<IProps> = (props) => {
             createdOn: new Date()
         });
 
-        setCurrentNoteID(currentNoteID + 1);
-
-        setOpen(true);
-        console.log('Successfully added!');
+        if (res.success) {
+            setCurrentNoteID(currentNoteID + 1);
+            setToastMsg('Successfully added!');
+            setOpen(true);
+        } else {
+            setToastMsg('There was an error adding your note: ' + res.message);
+        }
     };
 
     const handleCloseToast = () => {
@@ -71,10 +75,9 @@ export const AddNote: React.FC<IProps> = (props) => {
                     <ExpandMoreOutlinedIcon />
                 </IconButton>
             </Paper>
-            { open ? <Toast 
-                        message="Success" 
-                        open={open} 
-                        handleClose={handleCloseToast} /> 
+            { open ? <Toast message={toastMsg} 
+                            open={open} 
+                            handleClose={handleCloseToast} /> 
                    : <div></div> }
         </React.Fragment>
     );
