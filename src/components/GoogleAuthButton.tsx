@@ -8,12 +8,12 @@ import { IUserData } from '../data/IUser';
 interface IProps {
     useDefaultBtn: boolean;
     customText?: string;
-    customVariant?: "text" | "outlined" | "contained" | undefined;
-    customColor?: "inherit" | "primary" | "secondary" | "default" | undefined;
+    customVariant?: 'text' | 'outlined' | 'contained' | undefined;
+    customColor?: 'inherit' | 'primary' | 'secondary' | 'default' | undefined;
 }
 
 // TODO: move clientID to dotenv file
-const clientID: string = "393002801221-om8rvfesgm1vjf5sienfif6v126a3b06.apps.googleusercontent.com";
+const clientID: string = '393002801221-om8rvfesgm1vjf5sienfif6v126a3b06.apps.googleusercontent.com';
 
 export const GoogleLoginButton: React.FC<IProps> = (props) => {
     const setUser = useContext(UserLoginContext)[1];
@@ -25,26 +25,34 @@ export const GoogleLoginButton: React.FC<IProps> = (props) => {
 
     const handleSuccessResponse = async (response: GoogleLoginResponse | GoogleLoginResponseOffline) => {
         if (isGoogleLoginResponse(response)) {
-            console.log('Logged in successfully!');
-
             // TODO: fix repetitive code
-            const user = await login.addUser({
-                userID: 0, // userId does not matter, will be generated in backend
-                name: response.profileObj.name,
-                email: response.profileObj.email,
-                createdOn: new Date()
-            });
+            try {
+                const userResponse = await login.addUser({
+                    userID: 0, // userId does not matter, will be generated in backend
+                    name: response.profileObj.name,
+                    email: response.profileObj.email,
+                    createdOn: new Date()
+                });
 
-            user.data = user.data as IUserData; // need to explicitly declare it as a type of IUserData
-            
-            setUser({
-                userID: user.data.userID,
-                name: user.data.name,
-                email: user.data.email,
-                imgUrl: response.profileObj.imageUrl,
-                accessToken: response.accessToken,
-                loggedIn: true
-            });
+                if (userResponse.status === 200) {
+                    const user = userResponse.data.data as IUserData; // need to explicitly declare it as a type of IUserData
+                
+                    setUser({
+                        userID: user.userID,
+                        name: user.name,
+                        email: user.email,
+                        imgUrl: response.profileObj.imageUrl,
+                        accessToken: response.accessToken,
+                        loggedIn: true
+                    });
+                }
+                else {
+                    throw new Error(userResponse.data.message!);
+                }
+            } 
+            catch (ex) {
+                console.log('An error has occured: ' + ex);
+            }
         }
     };
 
